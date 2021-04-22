@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Spark.Data
 {
-    class Note
+    public class Note
     {
         [Key]
         public int NoteId { get; set; }

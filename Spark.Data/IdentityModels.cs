@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Spark.Data;
 
 namespace SparkClientManager.Data
 {
@@ -33,6 +34,8 @@ namespace SparkClientManager.Data
         }
 
         public DbSet<Project> Projects { get; set; }
+        public DbSet<Note> Notes { get; set; }
+        public DbSet<Message> Messages { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
