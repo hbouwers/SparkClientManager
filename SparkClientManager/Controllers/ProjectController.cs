@@ -16,5 +16,11 @@ namespace SparkClientManager.Controllers
             var model = new ProjectListItem[0];
             return View(model);
         }
+
+        // GET
+        public ActionResult Create()
+        {
+            return View();
+        }
     }
 }

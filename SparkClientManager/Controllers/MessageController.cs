@@ -15,5 +15,23 @@ namespace SparkClientManager.Controllers
             var model = new MessageListItem[0];
             return View(model);
         }
+
+        // GET
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        // Post
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(MessageCreate model)
+        {
+            if (ModelState.IsValid)
+            {
+
+            }
+            return View(model);
+        }
     }
 }

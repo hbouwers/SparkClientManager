@@ -54,8 +54,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Message\MessageCreate.cs" />
     <Compile Include="Message\MessageListItem.cs" />
+    <Compile Include="Note\NoteCreate.cs" />
     <Compile Include="Note\NoteListItem.cs" />
+    <Compile Include="Project\ProjectCreate.cs" />
     <Compile Include="Project\ProjectListItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
