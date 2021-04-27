@@ -13,6 +13,8 @@ namespace Spark.Data
         public int ProjectId { get; set; }
         [Required]
         public string Title { get; set; }
+        [Required]
+        public string OwnerId { get; set; }
         public string[] UserIds { get; set; }
     }
 }

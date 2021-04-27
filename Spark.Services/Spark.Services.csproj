@@ -54,12 +54,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="MessageService.cs" />
+    <Compile Include="NoteService.cs" />
+    <Compile Include="ProjectService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Spark.Data\Spark.Data.csproj">
+      <Project>{272ac01a-dc61-4023-90f0-965ab1b3f54a}</Project>
+      <Name>Spark.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Spark.Models\Spark.Models.csproj">
+      <Project>{e5e268c0-3973-4578-9cc2-d43251580baa}</Project>
+      <Name>Spark.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
