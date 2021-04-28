@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using Spark.Models.Project;
+using Spark.Services;
 
 namespace SparkClientManager.Controllers
 {
@@ -13,14 +15,38 @@ namespace SparkClientManager.Controllers
         // GET: Project
         public ActionResult Index()
         {
-            var model = new ProjectListItem[0];
+            ProjectService service = CreateProjectService();
+
+            var model = service.GetProjects();
+
             return View(model);
         }
 
         // GET
-        public ActionResult Create()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(ProjectCreate model)
         {
-            return View();
+            if (!ModelState.IsValid) return View(model);
+
+            var service = CreateProjectService();
+
+            if (service.CreateProject(model))
+            {
+                TempData["SaveResult"] = "Your note was created.";
+                return RedirectToAction("Index");
+            };
+
+            ModelState.AddModelError("", "Project could not be created.");
+
+            return View(model);
+        }
+
+        private ProjectService CreateProjectService()
+        {
+            var userId = User.Identity.GetUserId();
+            var service = new ProjectService(userId);
+            return service;
         }
     }
 }
