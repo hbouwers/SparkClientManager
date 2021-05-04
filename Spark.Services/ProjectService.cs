@@ -1,4 +1,5 @@
 ﻿using Spark.Data;
+using Spark.Models.Note;
 using Spark.Models.Project;
 using SparkClientManager.Data;
 using System;
@@ -53,6 +54,25 @@ namespace Spark.Services
                         );
 
                 return query.ToArray();
+            }
+        }
+
+        public ProjectDetail GetProjectById(int id)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                    .Projects
+                    .Single(e => e.ProjectId == id && e.OwnerId == _userId);
+                return
+                    new ProjectDetail
+                    {
+                        ProjectId = entity.ProjectId,
+                        Title = entity.Title,
+                        OwnerId = entity.OwnerId,
+                        UserIds = entity.UserIds
+                    };
             }
         }
     }

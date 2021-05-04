@@ -60,5 +60,26 @@ namespace Spark.Services
                 return query.ToArray();
             }
         }
+
+        public MessageDetail GetMessageById(int id)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                    .Messages
+                    .Single(e => e.MessageId == id && e.RecipientId == _userId);
+                return
+                    new MessageDetail
+                    {
+                        MessageId = entity.MessageId,
+                        SenderId = entity.SenderId,
+                        RecipientId = entity.RecipientId,
+                        Content = entity.Content,
+                        CreatedUtc = entity.CreatedUtc,
+                        Seen = entity.Seen
+                    };
+            }
+        }
     }
 }

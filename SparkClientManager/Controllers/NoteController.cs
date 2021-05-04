@@ -41,6 +41,14 @@ namespace SparkClientManager.Controllers
             return View(model);
         }
 
+        public ActionResult Details(int id)
+        {
+            var service = CreateNoteService();
+            var model = service.GetNoteById(id);
+
+            return View(model);
+        }
+
         private NoteService CreateNoteService()
         {
             var userId = User.Identity.GetUserId();

@@ -41,6 +41,14 @@ namespace SparkClientManager.Controllers
             return View(model);
         }
 
+        public ActionResult Details(int id)
+        {
+            var service = CreateMessageService();
+            var model = service.GetMessageById(id);
+
+            return View(model);
+        }
+
         private MessageService CreateMessageService()
         {
             var userId = User.Identity.GetUserId();

@@ -42,6 +42,14 @@ namespace SparkClientManager.Controllers
             return View(model);
         }
 
+        public ActionResult Details(int id)
+        {
+            var service = CreateProjectService();
+            var model = service.GetProjectById(id);
+
+            return View(model);
+        }
+
         private ProjectService CreateProjectService()
         {
             var userId = User.Identity.GetUserId();
