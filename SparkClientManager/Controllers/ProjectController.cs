@@ -50,6 +50,44 @@ namespace SparkClientManager.Controllers
             return View(model);
         }
 
+        public ActionResult Edit(int id)
+        {
+            var service = CreateProjectService();
+            var detail = service.GetProjectById(id);
+            var model =
+                new ProjectEdit
+                {
+                    ProjectId = detail.ProjectId,
+                    Title = detail.Title,
+                    UserIds = detail.UserIds
+                };
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(int id, ProjectEdit model)
+        {
+            if (!ModelState.IsValid) return View(model);
+
+            if(model.ProjectId != id)
+            {
+                ModelState.AddModelError("", "Id Mismatch");
+                return View(model);
+            }
+
+            var service = CreateProjectService();
+
+            if (service.UpdateProject(model))
+            {
+                TempData["SaveResult"] = "Your project was updated.";
+                return RedirectToAction("Index");
+            }
+
+            ModelState.AddModelError("", "Your project could not be updated.");
+            return View(model);
+        }
+
         private ProjectService CreateProjectService()
         {
             var userId = User.Identity.GetUserId();

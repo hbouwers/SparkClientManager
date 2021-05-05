@@ -246,6 +246,7 @@
     <Content Include="Views\Project\Details.cshtml" />
     <Content Include="Views\Note\Details.cshtml" />
     <Content Include="Views\Message\Details.cshtml" />
+    <Content Include="Views\Project\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

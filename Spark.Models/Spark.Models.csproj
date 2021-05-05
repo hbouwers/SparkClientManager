@@ -56,12 +56,15 @@
   <ItemGroup>
     <Compile Include="Message\MessageCreate.cs" />
     <Compile Include="Message\MessageDetail.cs" />
+    <Compile Include="Message\MessageEdit.cs" />
     <Compile Include="Message\MessageListItem.cs" />
     <Compile Include="Note\NoteCreate.cs" />
     <Compile Include="Note\NoteDetail.cs" />
+    <Compile Include="Note\NoteEdit.cs" />
     <Compile Include="Note\NoteListItem.cs" />
     <Compile Include="Project\ProjectCreate.cs" />
     <Compile Include="Project\ProjectDetail.cs" />
+    <Compile Include="Project\ProjectEdit.cs" />
     <Compile Include="Project\ProjectListItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

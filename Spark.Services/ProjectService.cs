@@ -75,5 +75,21 @@ namespace Spark.Services
                     };
             }
         }
+
+        public bool UpdateProject(ProjectEdit model)
+        {
+            using(var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                    .Projects
+                    .Single(e => e.ProjectId == model.ProjectId && e.OwnerId == _userId);
+
+                entity.Title = model.Title;
+                entity.UserIds = model.UserIds;
+
+                return ctx.SaveChanges() == 1;
+            }
+        }
     }
 }
