@@ -54,6 +54,43 @@ namespace SparkClientManager.Controllers
             return View(model);
         }
 
+        public ActionResult Edit(int id)
+        {
+            var service = CreateMessageService();
+            var detail = service.GetMessageById(id);
+            var model =
+                new MessageEdit
+                {
+                    MessageId = detail.MessageId,
+                    Seen = detail.Seen
+                };
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(int id, MessageEdit model)
+        {
+            if (!ModelState.IsValid) return View(model);
+
+            if (model.MessageId != id)
+            {
+                ModelState.AddModelError("", "Id Mismatch");
+                return View(model);
+            }
+
+            var service = CreateMessageService();
+
+            if (service.UpdateMessage(model))
+            {
+                TempData["SaveResult"] = "Your message was updated.";
+                return RedirectToAction("Index");
+            }
+
+            ModelState.AddModelError("", "Your message could not be updated.");
+            return View(model);
+        }
+
         [ActionName("Delete")]
         public ActionResult Delete(int id)
         {

@@ -82,6 +82,21 @@ namespace Spark.Services
             }
         }
 
+        public bool UpdateMessage(MessageEdit model)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                    .Messages
+                    .Single(e => e.MessageId == model.MessageId && e.RecipientId == _userId);
+
+                entity.Seen = model.Seen;
+
+                return ctx.SaveChanges() == 1;
+            }
+        }
+
         public bool DeleteMessage(int messageId)
         {
             using (var ctx = new ApplicationDbContext())

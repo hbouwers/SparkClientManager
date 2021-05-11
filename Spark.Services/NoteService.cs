@@ -35,8 +35,29 @@ namespace Spark.Services
                 return ctx.SaveChanges() == 1;
             }
         }
+        public IEnumerable<NoteListItem> GetNotes()
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var query =
+                    ctx
+                        .Notes
+                        .Where(e => e.OwnerId == _userId)
+                        .Select(
+                        e =>
+                            new NoteListItem
+                            {
+                                NoteId = e.NoteId,
+                                Content = e.Content,
+                                CreatedUtc = e.CreatedUtc
+                            }
+                        );
 
-        public IEnumerable<NoteListItem> GetNotes(int projectId)
+                return query.ToArray();
+            }
+        }
+
+        public IEnumerable<NoteListItem> GetNotesByProject(int projectId)
         {
             using (var ctx = new ApplicationDbContext())
             {

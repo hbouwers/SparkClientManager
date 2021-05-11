@@ -252,6 +252,7 @@
     <Content Include="Views\Message\Delete.cshtml" />
     <Content Include="Views\Note\Delete.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Message\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

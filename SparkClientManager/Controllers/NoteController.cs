@@ -11,15 +11,19 @@ namespace SparkClientManager.Controllers
 {
     public class NoteController : Controller
     {
-        //// get: note
-        //public actionresult index()
-        //{
-        //    var userid = user.identity.getuserid();
-        //    var service = new noteservice(userid);
-        //    var model = service.getnotes();
+        // get: note
+        public ActionResult Index()
+        {
+            var service = CreateNoteService();
+            var model = service.GetNotes();
 
-        //    return view(model);
-        //}
+            return View(model);
+        }
+
+        public ActionResult Create()
+        {
+            return View();
+        }
 
         // Post
         [HttpPost]
