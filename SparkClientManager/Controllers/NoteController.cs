@@ -11,14 +11,14 @@ namespace SparkClientManager.Controllers
 {
     public class NoteController : Controller
     {
-        //// GET: Note
-        //public ActionResult Index()
+        //// get: note
+        //public actionresult index()
         //{
-        //    var userId = User.Identity.GetUserId();
-        //    var service = new NoteService(userId);
-        //    var model = service.GetNotes();
+        //    var userid = user.identity.getuserid();
+        //    var service = new noteservice(userid);
+        //    var model = service.getnotes();
 
-        //    return View(model);
+        //    return view(model);
         //}
 
         // Post
@@ -47,6 +47,29 @@ namespace SparkClientManager.Controllers
             var model = service.GetNoteById(id);
 
             return View(model);
+        }
+
+        [ActionName("Delete")]
+        public ActionResult Delete(int id)
+        {
+            var svc = CreateNoteService();
+            var model = svc.GetNoteById(id);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteNote(int id)
+        {
+            var service = CreateNoteService();
+
+            service.DeleteNote(id);
+
+            TempData["SaveResult"] = "Your note was deleted";
+
+            return RedirectToAction("Index");
         }
 
         private NoteService CreateNoteService()

@@ -81,5 +81,20 @@ namespace Spark.Services
                     };
             }
         }
+
+        public bool DeleteMessage(int messageId)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                        .Messages
+                        .Single(e => e.MessageId == messageId && e.SenderId == _userId);
+
+                ctx.Messages.Remove(entity);
+
+                return ctx.SaveChanges() == 1;
+            }
+        }
     }
 }

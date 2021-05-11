@@ -91,5 +91,20 @@ namespace Spark.Services
                 return ctx.SaveChanges() == 1;
             }
         }
+
+        public bool DeleteProject(int projectId)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                        .Projects
+                        .Single(e => e.ProjectId == projectId && e.OwnerId == _userId);
+
+                ctx.Projects.Remove(entity);
+
+                return ctx.SaveChanges() == 1;
+            }
+        }
     }
 }

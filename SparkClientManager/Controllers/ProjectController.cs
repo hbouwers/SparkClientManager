@@ -23,6 +23,12 @@ namespace SparkClientManager.Controllers
         }
 
         // GET
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        // POST
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(ProjectCreate model)
@@ -33,7 +39,7 @@ namespace SparkClientManager.Controllers
 
             if (service.CreateProject(model))
             {
-                TempData["SaveResult"] = "Your note was created.";
+                TempData["SaveResult"] = "Your project was created.";
                 return RedirectToAction("Index");
             };
 
@@ -86,6 +92,29 @@ namespace SparkClientManager.Controllers
 
             ModelState.AddModelError("", "Your project could not be updated.");
             return View(model);
+        }
+
+        [ActionName("Delete")]
+        public ActionResult Delete(int id)
+        {
+            var svc = CreateProjectService();
+            var model = svc.GetProjectById(id);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteProject(int id)
+        {
+            var service = CreateProjectService();
+
+            service.DeleteProject(id);
+
+            TempData["SaveResult"] = "Your project was deleted";
+
+            return RedirectToAction("Index");
         }
 
         private ProjectService CreateProjectService()

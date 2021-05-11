@@ -22,6 +22,11 @@ namespace SparkClientManager.Controllers
         }
 
         // GET
+        public ActionResult Create(string recipientid)
+        {
+            return View(recipientid);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(MessageCreate model)
@@ -32,7 +37,7 @@ namespace SparkClientManager.Controllers
 
             if (service.CreateMessage(model))
             {
-                TempData["SaveResult"] = "Your note was created.";
+                TempData["SaveResult"] = "Your message was created.";
                 return RedirectToAction("Index");
             };
 
@@ -47,6 +52,29 @@ namespace SparkClientManager.Controllers
             var model = service.GetMessageById(id);
 
             return View(model);
+        }
+
+        [ActionName("Delete")]
+        public ActionResult Delete(int id)
+        {
+            var svc = CreateMessageService();
+            var model = svc.GetMessageById(id);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteMessage(int id)
+        {
+            var service = CreateMessageService();
+
+            service.DeleteMessage(id);
+
+            TempData["SaveResult"] = "Your message was deleted";
+
+            return RedirectToAction("Index");
         }
 
         private MessageService CreateMessageService()
